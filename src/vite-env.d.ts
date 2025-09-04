@@ -1,13 +1,16 @@
 /// <reference types="vite/client" />
 
-
 // 声明 Markdown 文件模块类型
 declare module '*.md' {
-    // "unknown" would be more detailed depends on how you structure frontmatter
-    const attributes: Record<string, unknown>;
+    const attributes: {
+        title: string;
+        description: string;
+        updateAt: string;
+    };
 
     const markdown: string
+    import React from "react"
+    const ReactComponent: React.FC;
 
-    // Modify below per your usage
-    export { attributes, markdown };
+    export { attributes, markdown, ReactComponent };
 }

@@ -15,7 +15,7 @@ export default defineConfig({
     legacy(),
     markdown({
       // 添加 raw 模式配置
-      mode: [Mode.MARKDOWN]
+      mode: [Mode.MARKDOWN, Mode.REACT]
     }),
     VitePWA({
       // 自动更新 Service Worker，用户刷新页面时自动获取最新版本
@@ -31,9 +31,9 @@ export default defineConfig({
       // Vite 会自动使用 public/manifest.json 文件
     })
   ],
-  // test: {
-  //   globals: true,
-  //   environment: 'jsdom',
-  //   setupFiles: './src/setupTests.ts',
-  // }
+  test: {
+    globals: true,
+    environment: 'jsdom',
+    setupFiles: './src/setupTests.ts',
+  }
 })

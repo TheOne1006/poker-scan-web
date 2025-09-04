@@ -1,4 +1,10 @@
-# 隐私政策
+---
+title: 隐私政策
+
+description: app 隐私信息 
+
+updateAt: 2025-03-05
+---
 
 ## 信息收集
 

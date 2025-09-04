@@ -1,5 +1,4 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import ReactMarkdown from 'react-markdown';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 // import './Md.css';
@@ -9,11 +8,18 @@ interface MdPageParams {
   type: string;
 }
 
+const ErrorComponent: React.FC = () => {
+  return (
+    <div>
+      <h2>加载错误</h2>
+    </div>
+  )
+}
+
 const Md: React.FC = () => {
   const { type } = useParams<MdPageParams>();
-  const [markdownContent, setMarkdownContent] = useState<string>('');
   const [pageTitle, setPageTitle] = useState<string>('');
-  // const [loading, setLoading] = useState<boolean>(true);
+  const [ReactComponent, setReactComponent] = useState<React.ReactNode | null>(null);
 
   useEffect(() => {
     if (type) {
@@ -22,10 +28,10 @@ const Md: React.FC = () => {
 
       if (mdDoc) {
         setPageTitle(mdDoc.title);
-        setMarkdownContent(mdDoc.content);
+        setReactComponent(mdDoc.ReactComponent);
       } else {
         setPageTitle("加载 错误");
-        setMarkdownContent(`# 加载错误\n\n加载内容时出现错误，请稍后重试。`);
+        setReactComponent(<ErrorComponent key="error" />);
       }
     }
   }, [type]);
@@ -39,7 +45,7 @@ const Md: React.FC = () => {
       </IonHeader>
       <IonContent fullscreen className="ion-padding">
         <div className="markdown-content">
-          <ReactMarkdown>{markdownContent}</ReactMarkdown>
+          {ReactComponent}
         </div>
       </IonContent>
     </IonPage>
