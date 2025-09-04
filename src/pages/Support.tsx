@@ -10,7 +10,7 @@ import {
   // IonItem,
   // IonTextarea,
   // IonButton,
-  // IonIcon,
+  IonIcon,
   // IonFab,
   // IonFabButton,
   // IonActionSheet,
@@ -21,10 +21,12 @@ import {
 } from '@ionic/react';
 // import { send, camera, image, close } from 'ionicons/icons';
 // 引入组件
-import Chat, { Bubble, useMessages } from '@chatui/core';
+import Chat, { Bubble, useMessages, MessageProps } from '@chatui/core';
+// 引入icon 以 js 方式
 // 引入样式
 import '@chatui/core/dist/index.css';
 import './chatui-dark.css';
+import '../resources/icon.js';
 
 const initialMessages = [
   {
@@ -53,11 +55,9 @@ const defaultQuickReplies = [
     isNew: true,
   },
   {
-    name: '短语2',
+    icon: 'keyboard-circle',
+    name: '意见反馈',
     isHighlight: true,
-  },
-  {
-    name: '短语3',
   },
 ];
 
@@ -88,6 +88,7 @@ const SupportPage: React.FC = () => {
 
   // 快捷短语回调，可根据 item 数据做出不同的操作，这里以发送文本消息为例
   function handleQuickReplyClick(item) {
+    console.log(item);
     handleSend('text', item.name);
   }
 
