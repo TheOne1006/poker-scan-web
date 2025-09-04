@@ -1,0 +1,83 @@
+.markdown-content {
+  line-height: 1.6;
+  max-width: 100%;
+}
+
+.markdown-content h1 {
+  font-size: 1.8em;
+  margin-bottom: 20px;
+  color: var(--ion-color-primary);
+  border-bottom: 2px solid var(--ion-color-primary-tint);
+  padding-bottom: 8px;
+}
+
+.markdown-content h2 {
+  font-size: 1.4em;
+  margin: 24px 0 12px 0;
+  color: var(--ion-color-primary-shade);
+}
+
+.markdown-content h3 {
+  font-size: 1.2em;
+  margin: 20px 0 8px 0;
+  color: var(--ion-color-medium);
+}
+
+.markdown-content p {
+  margin-bottom: 16px;
+  color: var(--ion-color-dark);
+}
+
+.markdown-content ul {
+  padding-left: 20px;
+  margin-bottom: 16px;
+}
+
+.markdown-content li {
+  margin-bottom: 6px;
+  color: var(--ion-color-dark);
+}
+
+.markdown-content hr {
+  margin: 24px 0;
+  border: none;
+  border-top: 1px solid var(--ion-color-light-shade);
+}
+
+.markdown-content em {
+  color: var(--ion-color-medium);
+  font-style: italic;
+}
+
+.markdown-content code {
+  background-color: var(--ion-color-light);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: monospace;
+  color: var(--ion-color-dark);
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+}
+
+.loading-container p {
+  color: var(--ion-color-medium);
+  font-size: 1.1em;
+}
+
+/* Dark theme support */
+@media (prefers-color-scheme: dark) {
+  .markdown-content p,
+  .markdown-content li {
+    color: var(--ion-color-light);
+  }
+  
+  .markdown-content code {
+    background-color: var(--ion-color-dark);
+    color: var(--ion-color-light);
+  }
+}
