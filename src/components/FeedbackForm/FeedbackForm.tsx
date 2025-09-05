@@ -46,12 +46,13 @@ const FEEDBACK_TYPES = [
   { value: 'suggestion', label: '建议', description: '对产品的建议便于改良' },
 ];
 
+
+
 const FeedbackForm: React.FC<FeedbackFormProps> = ({ onSubmit }) => {
   const [feedbackType, setFeedbackType] = useState<FeedbackType>('bug');
   const [description, setDescription] = useState('');
   const [images, setImages] = useState<string[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [showAlert, setShowAlert] = useState(false);
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
 
