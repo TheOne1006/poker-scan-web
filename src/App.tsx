@@ -3,7 +3,8 @@ import { IonApp, IonRouterOutlet, setupIonicReact } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import Home from './pages/Home';
 import Md from './pages/Md';
-import Support from './pages/Support';
+import Customer from './pages/Customer';
+import Demo from './pages/Demo';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -37,6 +38,11 @@ import './theme/variables.css';
 
 setupIonicReact();
 
+// only for development
+if (process.env.NODE_ENV === 'development') {
+  import('./mock_server/server');
+}
+
 const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
@@ -47,8 +53,11 @@ const App: React.FC = () => (
         <Route exact path="/md/:type">
           <Md />
         </Route>
-        <Route exact path="/support">
-          <Support />
+        <Route exact path="/customer">
+          <Customer />
+        </Route>
+        <Route exact path="/demo">
+          <Demo />
         </Route>
         <Route exact path="/">
           <Redirect to="/home" />

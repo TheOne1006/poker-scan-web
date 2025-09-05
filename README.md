@@ -76,27 +76,14 @@ yarn preview
    ```bash
    npm run build
    ```
-
-2. **验证 PWA 功能**
-   - 在 `dist` 目录中检查是否生成了 `sw.js`（Service Worker）
-   - 检查 `manifest.json` 配置是否正确
-
-3. **本地测试**
-
-   ```bash
-   npm run preview
-   ```
-
-   然后在浏览器中打开 `http://localhost:4173`
-
-4. **PWA 功能验证**
+2. **PWA 功能验证**
    - 打开浏览器开发者工具
    - 切换到 Application/应用程序 标签
    - 检查 Service Worker 是否正常注册
    - 检查 Manifest 配置是否正确
    - 测试离线功能
 
-5. **部署到服务器**
+3. **部署到服务器**
    - 将 `dist` 目录内容上传到 web 服务器
    - 确保服务器支持 HTTPS（PWA 要求）
    - 配置正确的 MIME 类型

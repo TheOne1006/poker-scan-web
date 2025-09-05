@@ -21,7 +21,7 @@ import {
 } from '@ionic/react';
 // import { send, camera, image, close } from 'ionicons/icons';
 // 引入组件
-import Chat, { Bubble, useMessages, MessageProps } from '@chatui/core';
+import Chat, { Bubble, useMessages } from '@chatui/core';
 // 引入icon 以 js 方式
 // 引入样式
 import '@chatui/core/dist/index.css';
@@ -62,7 +62,10 @@ const defaultQuickReplies = [
 ];
 
 
-const SupportPage: React.FC = () => {
+
+
+
+const Customer: React.FC = () => {
   // 消息列表
   const { messages, appendMsg } = useMessages(initialMessages);
 
@@ -121,4 +124,4 @@ const SupportPage: React.FC = () => {
   );
 };
 
-export default SupportPage;
+export default Customer;

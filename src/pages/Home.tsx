@@ -39,11 +39,18 @@ const Home: React.FC = () => {
               </IonLabel>
             </IonItem>
             
-            <IonItem button onClick={() => history.push('/support')}>
+            <IonItem button onClick={() => history.push('/customer')}>
               <IonIcon icon={chatbubbles} slot="start" />
               <IonLabel>
                 <h2>智能客服</h2>
                 <p>获取帮助和支持，支持图片上传</p>
+              </IonLabel>
+            </IonItem>
+            <IonItem button onClick={() => history.push('/demo')}>
+              <IonIcon icon={chatbubbles} slot="start" />
+              <IonLabel>
+                <h2>Demo</h2>
+                <p>查看 Demo 页面</p>
               </IonLabel>
             </IonItem>
           </IonList>
