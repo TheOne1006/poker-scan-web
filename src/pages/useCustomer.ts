@@ -3,11 +3,11 @@ import { useMessages } from '@chatui/core';
 
 import type { MessageProps, MessageId } from '@chatui/core/lib/components/Message';
 import type { QuickReplyItemProps } from '@chatui/core/lib/components/QuickReplies';
-import { ChatLogStatus, ChatMessageSender, ChatLogDto } from '../dtos/chat-log.dto';
+import { ChatLogStatus, ChatMessageSender, ChatLogDto, ChatMessageType } from '../dtos/chat-log.dto';
 
 import { postFeedback, postChat, getChatlog, getChatLogs, clearChatHistory } from '../utils/request';
 import { save2ImageCache, getImageFromStorage } from '../utils/storage';
-
+import { FeedbackType } from '../constants/feedback';
 
 // type Messages = MessageProps[];
 type MessageWithoutId = Omit<MessageProps, '_id'> & {
@@ -39,22 +39,28 @@ async function log2Message(log: ChatLogDto): Promise<MessageWithoutId> {
     const position = sender === ChatMessageSender.USER ? 'right' : 'left';
 
     switch (type) {
-        case 'feedback': {
+        case ChatMessageType.FEEDBACK: {
             const imageNames = log.relation.images || [];
-            const images = imageNames.map(async (image: string) => {
-                const file = await getImageFromStorage(image);
-                return file;
-            }).filter((item: File | null) => !!item);
-            console.log('images', images);
+            const contentType = (log.relation.type || 'bug') as FeedbackType;
+            const images: File[] = [];
+
+            if (imageNames.length > 0) {
+                for (const item of imageNames) {
+                    const file = await getImageFromStorage(item);
+                    if (file) {
+                        images.push(file);
+                    }
+                }
+            }
             return {
-                type: 'feedback',
-                content: { type: type, description: text, images },
+                type: ChatMessageType.FEEDBACK,
+                content: { type: contentType, description: text, images },
                 position: position,
             };
         }
         default:
             return {
-                type: 'text',
+                type: ChatMessageType.TEXT,
                 content: { text: text },
                 position: position,
             };

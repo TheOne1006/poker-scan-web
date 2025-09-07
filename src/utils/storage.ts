@@ -84,10 +84,26 @@ async function fileToBase64(file: File): Promise<string> {
 }
 
 // Convert base64 string to File object
-async function base64ToFile(base64: string, filename: string): Promise<File> {
-  const res = await fetch(base64);
-  const blob = await res.blob();
-  return new File([blob], filename, { type: blob.type });
+function base64ToFile(base64: string, filename: string): File {
+  // 解析Base64字符串，分离MIME类型和数据
+  const arr = base64.split(',');
+  const mimeMatch = arr[0].match(/:(.*?);/);
+
+  // 如果没有指定MIME类型，默认使用application/octet-stream
+  const mime = (mimeMatch && mimeMatch[1]) || 'application/octet-stream';
+
+  // 解码Base64数据
+  const bstr = atob(arr[1]);
+  let n = bstr.length;
+  const u8arr = new Uint8Array(n);
+
+  // 转换为Uint8Array
+  while (n--) {
+    u8arr[n] = bstr.charCodeAt(n);
+  }
+
+  // 创建File对象
+  return new File([u8arr], filename, { type: mime });
 }
 
 export async function save2ImageCache(file: File, fileName: string) {
@@ -106,7 +122,7 @@ export async function getImageFromStorage(fileName: string): Promise<File | null
   
   // Convert base64 to File object
   try {
-    const file = await base64ToFile(base64, fileName);
+    const file = base64ToFile(base64, fileName);
     return file;
   } catch (error) {
     console.error('Error converting base64 to File:', error);

@@ -2,6 +2,7 @@
 
 export type FeedbackType = 'bug' | 'feature' | 'suggestion';
 
+
 export const FEEDBACK_TYPES = [
     { value: 'bug', label: 'Bug反馈', description: 'Bug 反馈' },
     { value: 'feature', label: '新功能', description: '希望新增什么功能' },

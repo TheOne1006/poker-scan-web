@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React from 'react';
 import {
   IonContent,
   IonHeader,
@@ -10,7 +10,7 @@ import {
   // IonItem,
   // IonTextarea,
   // IonButton,
-  IonIcon,
+  // IonIcon,
   // IonFab,
   // IonFabButton,
   // IonActionSheet,
@@ -48,8 +48,10 @@ const Customer: React.FC = () => {
 
     switch (type) {
       case 'feedback':
-        console.log('feedback coontent', content);
-        return <FeedbackCard type={content.type} description={content.description} images={content.images} />
+        return (<div style={{ width: '80%' }}>
+        <FeedbackCard type={content.type} description={content.description} images={content.images} />
+        </div>
+        )
       case 'feedbackForm':
         return <div style={{ width: '100%' }}>
           <FeedbackForm onSubmit={sendFeedback} />

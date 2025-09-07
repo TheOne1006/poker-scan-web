@@ -2,7 +2,7 @@
 export enum ChatMessageType {
   TEXT = 'text',
   IMAGE = 'image',
-  SUPPORT = 'support',
+  FEEDBACK = 'feedback',
   // 命令行
   COMMAND = 'command',
 }

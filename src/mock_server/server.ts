@@ -54,7 +54,7 @@ createServer({
       return [
         {
           "text": "应用在某些情况下会崩溃",
-          "type": "support",
+          "type": "feedback",
           "sender": "user",
           "status": "completed",
           "relation": {
