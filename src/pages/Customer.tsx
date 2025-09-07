@@ -20,84 +20,43 @@ import {
   // IonImg
 } from '@ionic/react';
 // import { send, camera, image, close } from 'ionicons/icons';
+import type { MessageProps } from '@chatui/core/lib/components/Message';
+
 // 引入组件
-import Chat, { Bubble, useMessages } from '@chatui/core';
+import Chat, { Bubble } from '@chatui/core';
 // 引入icon 以 js 方式
 // 引入样式
 import '@chatui/core/dist/index.css';
-import './chatui-dark.css';
+// import './chatui-dark.css';
 import '../resources/icon.js';
-
-const initialMessages = [
-  {
-    type: 'system',
-    content: { text: '88VIP专属智能客服小蜜 为您服务' },
-  },
-  {
-    type: 'text',
-    content: { text: 'Hi，我是你的专属智能助理小蜜，有问题请随时找我哦~' },
-    user: {
-      avatar: 'https://gw.alicdn.com/imgextra/i2/O1CN01fPEB9P1ylYWgaDuVR_!!6000000006619-0-tps-132-132.jpg',
-    },
-  },
-];
-
-// 默认快捷短语，可选
-const defaultQuickReplies = [
-  {
-    icon: 'message',
-    name: '联系人工服务',
-    isNew: true,
-    isHighlight: true,
-  },
-  {
-    name: '短语1',
-    isNew: true,
-  },
-  {
-    icon: 'keyboard-circle',
-    name: '意见反馈',
-    isHighlight: true,
-  },
-];
-
-
-
+import { useCustomer } from './useCustomer';
+import { FeedbackForm } from '../components/FeedbackForm/FeedbackForm';
+import { FeedbackCard } from '../components/ChatCards/FeedbackCard';
 
 
 const Customer: React.FC = () => {
   // 消息列表
-  const { messages, appendMsg } = useMessages(initialMessages);
+  const { messages, 
+    handleSend,
+    sendFeedback, 
+    handleQuickReplyClick,
+    quickReplies,
+   } = useCustomer();
 
-  // 发送回调
-  function handleSend(type, val) {
-    if (type === 'text' && val.trim()) {
-      appendMsg({
-        type: 'text',
-        content: { text: val },
-        position: 'right',
-      });
+  function renderMessageContent(msg: MessageProps) {
+    const { content, type } = msg;
 
-      // TODO: 发送请求
-      // 模拟回复消息
-      setTimeout(() => {
-        appendMsg({
-          type: 'text',
-          content: { text: '亲，您遇到什么问题啦？请简要描述您的问题~' },
-        });
-      }, 1000);
+    switch (type) {
+      case 'feedback':
+        console.log('feedback coontent', content);
+        return <FeedbackCard type={content.type} description={content.description} images={content.images} />
+      case 'feedbackForm':
+        return <div style={{ width: '100%' }}>
+          <FeedbackForm onSubmit={sendFeedback} />
+        </div>
+      default:
+        return <Bubble content={content.text} />;
     }
-  }
-
-  // 快捷短语回调，可根据 item 数据做出不同的操作，这里以发送文本消息为例
-  function handleQuickReplyClick(item) {
-    console.log(item);
-    handleSend('text', item.name);
-  }
-
-  function renderMessageContent(msg) {
-    const { content } = msg;
-    return <Bubble content={content.text} />;
   }
 
   return (
@@ -115,9 +74,10 @@ const Customer: React.FC = () => {
             // navbar={{ title: '智能助理' }}
             messages={messages}
             renderMessageContent={renderMessageContent}
-            quickReplies={defaultQuickReplies}
+            quickReplies={quickReplies}
             onQuickReplyClick={handleQuickReplyClick}
             onSend={handleSend}
+            colorScheme="auto"
           />
       </IonContent>
     </IonPage>

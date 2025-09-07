@@ -1,21 +1,16 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonCard } from '@ionic/react';
+import { IonPage } from '@ionic/react';
 import { FeedbackForm } from '../components/FeedbackForm/FeedbackForm';
+import { FeedbackCard } from '../components/ChatCards/FeedbackCard';
 
 const Demo: React.FC = () => {
 
     return (
         <IonPage>
-            <IonHeader>
-                <IonToolbar>
-                    <IonTitle>Demo</IonTitle>
-                </IonToolbar>
-            </IonHeader>
-            <IonContent>
-                <IonCard>
-                    <FeedbackForm />
-                </IonCard>
+            <FeedbackForm onSubmit={async (description, type, images) => {
+                console.log(description, type, images);
+            }} />
 
-            </IonContent>
+            <FeedbackCard type="bug" description="test 123" images={[]} />
         </IonPage>
     );
 };

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import {
   IonCard,
   IonCardContent,
-  IonItem,
+  // IonItem,
   IonLabel,
   IonSelect,
   IonSelectOption,
@@ -13,45 +13,30 @@ import {
   IonRow,
   IonCol,
   IonImg,
-  IonFab,
-  IonFabButton,
-  IonAlert,
+  // IonFab,
+  // IonFabButton,
+  // IonAlert,
   IonToast,
   IonProgressBar
 } from '@ionic/react';
 import {
-  camera,
-  image,
+  // camera,
+  // image,
   close,
   send,
   add,
-  checkmark
 } from 'ionicons/icons';
-
-interface FeedbackFormProps {
-  onSubmit?: (feedback: FeedbackData) => void;
-}
-
-interface FeedbackData {
-  type: string;
-  message: string;
-  images: string[];
-}
-
-type FeedbackType = 'bug' | 'feature' | 'suggestion';
-
-const FEEDBACK_TYPES = [
-  { value: 'bug', label: 'Bug反馈', description: 'Bug 反馈' },
-  { value: 'feature', label: '新功能', description: '希望新增什么功能' },
-  { value: 'suggestion', label: '建议', description: '对产品的建议便于改良' },
-];
+import { FeedbackType, FEEDBACK_TYPES } from '../../constants/feedback';
 
 
+type FeedbackFormProps = {
+  onSubmit: (description: string, type: string, images: File[]) => Promise<void>;
+};
 
 const FeedbackForm: React.FC<FeedbackFormProps> = ({ onSubmit }) => {
   const [feedbackType, setFeedbackType] = useState<FeedbackType>('bug');
   const [description, setDescription] = useState('');
-  const [images, setImages] = useState<string[]>([]);
+  const [images, setImages] = useState<File[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
@@ -74,9 +59,8 @@ const FeedbackForm: React.FC<FeedbackFormProps> = ({ onSubmit }) => {
       }
 
       const reader = new FileReader();
-      reader.onload = (e) => {
-        const result = e.target?.result as string;
-        setImages(prev => [...prev, result]);
+      reader.onload = () => {
+        setImages(prev => [...prev, file]);
       };
       reader.readAsDataURL(file);
     });
@@ -99,22 +83,17 @@ const FeedbackForm: React.FC<FeedbackFormProps> = ({ onSubmit }) => {
     setIsSubmitting(true);
     
     try {
-      const feedbackData: FeedbackData = {
-            type: feedbackType,
-            message: description.trim(),
-            images
-      };
-
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      onSubmit?.(feedbackData);
+      await onSubmit(description.trim(), feedbackType, images);
       
       setToastMessage('反馈成功');
       setShowToast(true);
+
+      // todo: image to cache
       
       setFeedbackType('bug');
       setDescription('');
       setImages([]);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
       setToastMessage('反馈失败');
       setShowToast(true);
@@ -128,7 +107,7 @@ const FeedbackForm: React.FC<FeedbackFormProps> = ({ onSubmit }) => {
   return (
     <div className="feedback-form">
       <IonCard>
-        {/* <IonCardContent> */}
+        <IonCardContent>
           {/* 反馈类型选择 - 紧凑显示 */}
           <div style={{  display: 'flex',
                       justifyContent: 'space-between',
@@ -155,7 +134,7 @@ const FeedbackForm: React.FC<FeedbackFormProps> = ({ onSubmit }) => {
           </div>
 
           {/* 图片区域 - 包含加号框 */}
-          <div style={{ marginBottom: '5px' }}>
+          <div style={{ marginBottom: '10px' }}>
             <IonLabel>
               <strong>图片 ({images.length}/5)</strong>
             </IonLabel>
@@ -165,7 +144,7 @@ const FeedbackForm: React.FC<FeedbackFormProps> = ({ onSubmit }) => {
                   <IonCol size="4" key={index}>
                     <div style={{ position: 'relative' }}>
                       <IonImg
-                        src={image}
+                        src={URL.createObjectURL(image)}
                         alt={`图片 ${index + 1}`}
                         style={{
                           width: '100%',
@@ -226,8 +205,8 @@ const FeedbackForm: React.FC<FeedbackFormProps> = ({ onSubmit }) => {
           </div>
 
           {/* 反馈内容输入 */}
-          <IonItem>
-            <IonLabel position="stacked">
+          <div style={{ marginTop: '10px' }}>
+            <IonLabel>
               <strong>反馈内容</strong>
             </IonLabel>
             <IonTextarea
@@ -239,7 +218,7 @@ const FeedbackForm: React.FC<FeedbackFormProps> = ({ onSubmit }) => {
               counter={true}
               fill="outline"
             />
-          </IonItem>
+          </div>
 
           {/* 隐藏的文件上传输入 */}
           <input
@@ -253,17 +232,16 @@ const FeedbackForm: React.FC<FeedbackFormProps> = ({ onSubmit }) => {
           />
 
           {/* 提交按钮 */}
-          <div style={{ marginTop: '10px' }}>
+          <div style={{ marginTop: '5px' }}>
             <IonButton
               expand="block"
               onClick={handleSubmit}
-              disabled={!canSubmit}
+              disabled={!canSubmit || isSubmitting}
+              fill={isSubmitting ? "outline" : "solid"}
+              // fill={"outline"}
             >
               {isSubmitting ? (
-                <>
-                  <IonProgressBar type="indeterminate" style={{ marginRight: '8px' }} />
-                  提交中...
-                </>
+                <IonProgressBar type="indeterminate" style={{ marginRight: '8px' }} />
               ) : (
                 <>
                   <IonIcon icon={send} slot="start" />
@@ -272,7 +250,7 @@ const FeedbackForm: React.FC<FeedbackFormProps> = ({ onSubmit }) => {
               )}
             </IonButton>
           </div>
-        {/* </IonCardContent> */}
+        </IonCardContent>
       </IonCard>
 
       <IonToast
