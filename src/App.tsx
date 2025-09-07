@@ -1,10 +1,12 @@
+import { lazy, Suspense } from 'react';
 import { Redirect, Route } from 'react-router-dom';
-import { IonApp, IonRouterOutlet, setupIonicReact } from '@ionic/react';
+import { IonApp, IonRouterOutlet, setupIonicReact, IonContent, IonSpinner } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import Home from './pages/Home';
-import Md from './pages/Md';
-import Customer from './pages/Customer';
-import Demo from './pages/Demo';
+
+// import Home from './pages/Home';
+// import Md from './pages/Md';
+// import Customer from './pages/Customer';
+// import Demo from './pages/Demo';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -43,9 +45,22 @@ if (process.env.NODE_ENV === 'development') {
   import('./mock_server/server');
 }
 
+const Home = lazy(() => import('./pages/Home')); // 访问 / 时才加载 Home Chunk
+const Md = lazy(() => import('./pages/Md')); // 访问 /md/:type 时才加载
+const Customer = lazy(() => import('./pages/Customer')); // 访问 /customer 时加载
+const Demo = lazy(() => import('./pages/Demo')); // 访问 /demo 时加载
+
 const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
+      <Suspense
+        fallback={
+          <IonContent className="ion-padding">
+            <IonSpinner name="crescent" color="primary" />
+            {/* Ionic 官方加载动画，支持多种样式和颜色 */}
+          </IonContent>
+        }
+      >
       <IonRouterOutlet>
         <Route exact path="/home">
           <Home />
@@ -63,6 +78,7 @@ const App: React.FC = () => (
           <Redirect to="/home" />
         </Route>
       </IonRouterOutlet>
+      </Suspense>
     </IonReactRouter>
   </IonApp>
 );

@@ -5,18 +5,6 @@ import {
   IonPage,
   IonTitle,
   IonToolbar,
-  // IonBackButton,
-  // IonButtons,
-  // IonItem,
-  // IonTextarea,
-  // IonButton,
-  // IonIcon,
-  // IonFab,
-  // IonFabButton,
-  // IonActionSheet,
-  // IonList,
-  // IonAvatar,
-  // IonLabel,
   // IonImg
 } from '@ionic/react';
 // import { send, camera, image, close } from 'ionicons/icons';

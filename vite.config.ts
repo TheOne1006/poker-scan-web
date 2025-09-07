@@ -6,6 +6,7 @@ import { plugin as markdown, Mode } from 'vite-plugin-markdown'
 // import { defineConfig } from 'vitest/config'
 import { VitePWA } from 'vite-plugin-pwa'
 import { defineConfig } from 'vite'
+import { visualizer } from 'rollup-plugin-visualizer'
 
 
 // https://vitejs.dev/config/
@@ -29,6 +30,12 @@ export default defineConfig({
       includeAssets: ['favicon.png', 'apple-touch-icon.png', 'masked-icon.svg'],
       // 注意：不需要在此处配置 manifest，因为已存在 public/manifest.json
       // Vite 会自动使用 public/manifest.json 文件
+    }),
+    // 仅在 build 时启用
+    visualizer({ 
+      open: true,  // 构建完成后自动打开分析页面
+      gzipSize: true,  // 显示 gzip 压缩后的大小
+      brotliSize: true  // 显示 brotli 压缩后的大小
     })
   ],
   test: {

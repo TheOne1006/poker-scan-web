@@ -1,4 +1,4 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonList, IonItem, IonIcon, IonLabel, IonButton } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonList, IonItem, IonIcon, IonLabel } from '@ionic/react';
 import { document, chatbubbles, shield } from 'ionicons/icons';
 import { useHistory } from 'react-router-dom';
 import ExploreContainer from '../components/ExploreContainer';
