@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import type { Mock } from 'vitest'; // 导入Mock类型
-import { feedbackPost } from '../request'; // 替换为实际文件路径
+import { postFeedback } from '../request'; // 替换为实际文件路径
 
 import fs from 'fs/promises'; // Node.js文件系统API
 import path from 'path';
@@ -27,7 +27,7 @@ const mockLocalStorage = {
     length: 0
 };
 
-describe('feedbackPost', () => {
+describe('postFeedback', () => {
     beforeEach(() => {
         vi.clearAllMocks();
 
@@ -57,12 +57,12 @@ describe('feedbackPost', () => {
 
         // 3. 明确设置token的返回值（在调用函数前设置）
         mockLocalStorage.getItem.mockImplementation((key) => {
-            if (key === 'token') return 'test-token';
+            if (key === 'poker-scan-token') return 'test-token';
             return null;
         });
 
         // 调用函数
-        const result = await feedbackPost(description, type, files);
+        const result = await postFeedback(description, type, files);
 
         // 验证结果
         expect(result).toEqual({ success: true });
@@ -72,7 +72,7 @@ describe('feedbackPost', () => {
         expect(fetch).toHaveBeenCalledWith('/api/feedback', expect.objectContaining({
             method: 'POST',
             headers: {
-                'Authorization': 'Bearer test-token'
+                'Authorization': 'token test-token'
             }
         }));
 
@@ -93,12 +93,12 @@ describe('feedbackPost', () => {
         mockLocalStorage.getItem.mockReturnValue('');
 
         // 调用函数
-        await feedbackPost(description, type, files);
+        await postFeedback(description, type, files);
 
         // 验证Authorization头
         expect(fetch).toHaveBeenCalledWith('/api/feedback', expect.objectContaining({
             headers: {
-                'Authorization': 'Bearer '
+                'Authorization': 'token '
             }
         }));
     });
@@ -116,7 +116,7 @@ describe('feedbackPost', () => {
         ];
 
         // 3. 调用函数
-        await feedbackPost('多真实文件测试', 'feature', files);
+        await postFeedback('多真实文件测试', 'feature', files);
 
         // 4. 验证FormData中的文件
         const formData = (fetch as Mock).mock.calls[0][1].body as FormData;
@@ -143,7 +143,7 @@ describe('feedbackPost', () => {
         } as Response);
 
         // 调用函数
-        const result = await feedbackPost('错误测试', 'bug', []);
+        const result = await postFeedback('错误测试', 'bug', []);
 
         // 验证是否返回错误信息
         expect(result).toEqual(errorResponse);
