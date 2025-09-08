@@ -10,6 +10,7 @@
 
 # production
 /dist
+/stats.html
 
 # misc
 .DS_Store

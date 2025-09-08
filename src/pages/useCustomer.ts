@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useMessages } from '@chatui/core';
+import { useIonToast } from '@ionic/react';
 
 import type { MessageProps, MessageId } from '@chatui/core/lib/components/Message';
 import type { QuickReplyItemProps } from '@chatui/core/lib/components/QuickReplies';
@@ -69,24 +70,34 @@ async function log2Message(log: ChatLogDto): Promise<MessageWithoutId> {
 
 export const useCustomer = () => {
     const { messages, appendMsg, resetList, updateMsg, deleteMsg } = useMessages([]);
-    const [showFeedbackModal, setShowFeedbackModal] = useState(false);
     const [feedbackMessageId, setFeedbackMessageId] = useState<string | null>(null);
     const [quickReplies] = useState<QuickReplyItemProps[]>(defaultQuickReplies);
 
+    const [present] = useIonToast();
 
     async function postChatThenWaitForReplay(val: string) {
-        const chatLog = await postChat(val);
+        let chatLog: ChatLogDto | null = null;
+        try {
+            chatLog = await postChat(val);
+        } catch {
+            present({
+                message: "发送消息失败，请稍后再试.",
+                duration: 3000,
+                position: 'bottom',
+            });
+        }
+
         let retryCount = 0;
 
         // left waiting for replay
         const msgId = appendMsg({
             type: 'text',
             position: 'left',
-            content: { text: "正在等待回复..." },
+            content: { text: "正在等待回复" },
             status: 'pending',
         });
 
-        while (chatLog.status === ChatLogStatus.PENDING) {
+        while (chatLog && chatLog.status === ChatLogStatus.PENDING) {
             // 超出 N 次重试后，放弃等待
             if (retryCount >= 10) {
                 updateMsg(msgId, {
@@ -97,16 +108,26 @@ export const useCustomer = () => {
                 break;
             }
             retryCount++;
-            await new Promise(resolve => setTimeout(resolve, 1000));
-            const updatedChatLog = await getChatlog(chatLog.id);
-            if (updatedChatLog.status === ChatLogStatus.COMPLETED) {
-                updateMsg(msgId, {
-                    type: 'text',
-                    content: { text: updatedChatLog.text },
-                    status: 'sent',
+            await new Promise(resolve => setTimeout(resolve, retryCount * 1000));
+
+            try {
+                const updatedChatLog = await getChatlog(chatLog.id);
+
+                if (updatedChatLog.status === ChatLogStatus.COMPLETED) {
+                    updateMsg(msgId, {
+                        type: 'text',
+                        content: { text: updatedChatLog.text },
+                        status: 'sent',
+                    });
+                    break;
+                };
+            } catch {
+                present({
+                    message: "获取回复失败，请稍后再试.",
+                    duration: 3000,
+                    position: 'bottom',
                 });
-                break;
-            };
+            }
         }
 
 
@@ -114,13 +135,23 @@ export const useCustomer = () => {
 
     useEffect(() => {
         async function initMessages() {
-            const chatLogs = await getChatLogs();
-            const messages = await Promise.all(chatLogs.map(log2Message));
-            resetList(messages);
+            try {
+                const chatLogs = await getChatLogs();
+                const messages = await Promise.all(chatLogs.map(log2Message));
+                resetList(messages);
+            } catch {
+                // console.error(error);
+                // console.error('获取聊天记录失败');
+                present({
+                    message: "获取聊天记录失败，请正确打开页面.",
+                    duration: 3000,
+                    position: 'middle',
+                });
+            }
         }
 
         initMessages();
-    }, [resetList]);
+    }, [resetList, present]);
 
     // 发送发送消息
     function handleSend(type: string, inputVal: string) {
@@ -147,26 +178,35 @@ export const useCustomer = () => {
         try {
             const [feedbackLog, replyLog] = await postFeedback(description, type, images);
 
-            feedbackLog.relation.images.forEach((image: string, index: number) => {
-                if (images[index]) {
-                    save2ImageCache(images[index], image);
-                }
-            })
+            await Promise.all(
+                feedbackLog.relation?.images?.map(async (imageName: string, index: number) => {
+                    if (images[index]) {
+                        await save2ImageCache(images[index], imageName);
+                    }
+                }) || []
+            );
+            
+            // to Promise.all
 
-            const feedbackMsg = await log2Message(feedbackLog);
-            console.log('feedbackLog', feedbackLog);
-            console.log('feedbackMsg', feedbackMsg);
+            const [feedbackMsg, replyMsg] = await Promise.all([
+                log2Message(feedbackLog),
+                log2Message(replyLog)
+            ]);
+            
             appendMsg(feedbackMsg);
-            const replyMsg = await log2Message(replyLog);
             appendMsg(replyMsg);
         } catch (error) {
             // todo: 提示反馈失败
             console.error(error);
+            present({
+                message: "反馈失败，请稍后再试.",
+                duration: 3000,
+                position: 'top',
+            });
         } finally {
             if (feedbackMessageId) {
                 deleteMsg(feedbackMessageId);
             }
-            setShowFeedbackModal(false);
         }
     }
 
@@ -195,11 +235,20 @@ export const useCustomer = () => {
                 break;
             }
             case 'clearHistory': { 
+                try {
+                    await clearChatHistory();
+                } catch {
+                    present({
+                        message: "清空聊天记录失败，请稍后再试.",
+                        duration: 3000,
+                        position: 'top',
+                    });
+                } finally {
                     resetList([]);
-                    clearChatHistory();
-
-                    break;
                 }
+
+                break;
+            }
             case 'contact_human_service':
                 // 联系人工服务
                 break;
@@ -210,6 +259,11 @@ export const useCustomer = () => {
         }
     }
 
+    async function closeFeedbackForm() {
+        if (feedbackMessageId) {
+            deleteMsg(feedbackMessageId);
+        }
+    }
 
-    return { messages, handleSend, sendFeedback, showFeedbackModal, handleQuickReplyClick, quickReplies };
+    return { messages, handleSend, sendFeedback, handleQuickReplyClick, quickReplies, closeFeedbackForm };
 };

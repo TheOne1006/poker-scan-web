@@ -1,7 +1,7 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonList, IonItem, IonIcon, IonLabel } from '@ionic/react';
 import { document, chatbubbles, shield } from 'ionicons/icons';
 import { useHistory } from 'react-router-dom';
-import ExploreContainer from '../components/ExploreContainer';
+// import ExploreContainer from '. ./components/ExploreContainer';
 import './Home.css';
 
 const Home: React.FC = () => {
@@ -56,7 +56,7 @@ const Home: React.FC = () => {
           </IonList>
         </div>
 
-        <ExploreContainer />
+        {/* <ExploreContainer /> */}
       </IonContent>
     </IonPage>
   );

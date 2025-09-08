@@ -8,7 +8,11 @@ const Demo: React.FC = () => {
         <IonPage>
             <FeedbackForm onSubmit={async (description, type, images) => {
                 console.log(description, type, images);
-            }} />
+            }} 
+            onClose={() => {
+                console.log('close');
+            }} 
+            />
 
             <FeedbackCard type="bug" description="test 123" images={[]} />
         </IonPage>

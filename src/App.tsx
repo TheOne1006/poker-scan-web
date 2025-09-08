@@ -1,7 +1,10 @@
 import { lazy, Suspense } from 'react';
 import { Redirect, Route } from 'react-router-dom';
 import { IonApp, IonRouterOutlet, setupIonicReact, IonContent, IonSpinner } from '@ionic/react';
-import { IonReactRouter } from '@ionic/react-router';
+import {
+   IonReactRouter,
+  //  IonReactHashRouter 
+  } from '@ionic/react-router';
 
 // import Home from './pages/Home';
 // import Md from './pages/Md';
@@ -41,9 +44,9 @@ import './theme/variables.css';
 setupIonicReact();
 
 // only for development
-if (process.env.NODE_ENV === 'development') {
-  import('./mock_server/server');
-}
+// if (process.env.NODE_ENV === 'development') {
+//   import('./mock_server/server');
+// }
 
 const Home = lazy(() => import('./pages/Home')); // 访问 / 时才加载 Home Chunk
 const Md = lazy(() => import('./pages/Md')); // 访问 /md/:type 时才加载

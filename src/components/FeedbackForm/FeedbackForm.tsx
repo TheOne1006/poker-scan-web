@@ -31,9 +31,10 @@ import { FeedbackType, FEEDBACK_TYPES } from '../../constants/feedback';
 
 type FeedbackFormProps = {
   onSubmit: (description: string, type: string, images: File[]) => Promise<void>;
+  onClose: () => void;
 };
 
-const FeedbackForm: React.FC<FeedbackFormProps> = ({ onSubmit }) => {
+const FeedbackForm: React.FC<FeedbackFormProps> = ({ onSubmit, onClose }) => {
   const [feedbackType, setFeedbackType] = useState<FeedbackType>('bug');
   const [description, setDescription] = useState('');
   const [images, setImages] = useState<File[]>([]);
@@ -232,12 +233,21 @@ const FeedbackForm: React.FC<FeedbackFormProps> = ({ onSubmit }) => {
           />
 
           {/* 提交按钮 */}
-          <div style={{ marginTop: '5px' }}>
+          <div style={{ marginTop: '5px', display: 'flex', gap: '10px' }}>
+            <IonButton
+              expand="block"
+              onClick={onClose}
+              disabled={isSubmitting}
+              fill="outline"
+            >
+              关闭
+            </IonButton>
             <IonButton
               expand="block"
               onClick={handleSubmit}
               disabled={!canSubmit || isSubmitting}
               fill={isSubmitting ? "outline" : "solid"}
+              style={{ flex: 1 }}
               // fill={"outline"}
             >
               {isSubmitting ? (

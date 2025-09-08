@@ -72,7 +72,8 @@ describe('postFeedback', () => {
         expect(fetch).toHaveBeenCalledWith('/api/feedback', expect.objectContaining({
             method: 'POST',
             headers: {
-                'Authorization': 'token test-token'
+                'token': 'test-token',
+                'Accept': 'application/json'
             }
         }));
 
@@ -98,7 +99,8 @@ describe('postFeedback', () => {
         // 验证Authorization头
         expect(fetch).toHaveBeenCalledWith('/api/feedback', expect.objectContaining({
             headers: {
-                'Authorization': 'token '
+                'token': '',
+                'Accept': 'application/json'
             }
         }));
     });
