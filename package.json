@@ -4,7 +4,6 @@
   "version": "0.0.1",
   "type": "module",
   "scripts": {
-    "deploy": "rm -rf ../poker-scan-nestjs-leancloud-api/public/assets && cp -rf dist/* ../poker-scan-nestjs-leancloud-api/public/",
     "start": "ionic serve",
     "dev": "vite",
     "build": "NODE_ENV=production tsc && vite build",

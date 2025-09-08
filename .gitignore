@@ -9,8 +9,8 @@
 /coverage
 
 # production
-/dist
 /stats.html
+.env.production
 
 # misc
 .DS_Store
