@@ -1,1 +1,0 @@
-import{j as o,I as a}from"./index-BcDu7jdl.js";import{F as r,a as n}from"./FeedbackCard-HHGpu-5S.js";import"./index-BGDHnJBc.js";const l=()=>o.jsxs(a,{children:[o.jsx(r,{onSubmit:async(s,e,t)=>{console.log(s,e,t)},onClose:()=>{console.log("close")}}),o.jsx(n,{type:"bug",description:"test 123",images:[]})]});export{l as default};

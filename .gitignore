@@ -9,6 +9,7 @@
 /coverage
 
 # production
+/dist
 /stats.html
 .env.production
 
