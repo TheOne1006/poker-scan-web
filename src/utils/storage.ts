@@ -20,6 +20,14 @@ export function removeStorageItem(key: string) {
   localStorage.removeItem(storagePrefix + key);
 }
 
+export function setToken(token: string) {
+  setStorage('token', token);
+}
+
+export function getToken(): string {
+  return getStorageItem('token') || '';
+}
+
 
 /**
  * ================================================

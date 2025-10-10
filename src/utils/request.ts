@@ -6,7 +6,7 @@ import {
   ChatLogDto,
   ChatDto
 } from '../dtos';
-import { getStorageItem } from './storage';
+import { getToken } from './storage';
 
 
 // 定义通用响应格式（泛型 T 约束 data 类型）
@@ -15,12 +15,6 @@ interface ApiResponse<T = unknown> {
   data: T;
   message: string;
 }
-
-
-function getToken(): string {
-  return getStorageItem('token') || '';
-}
-
 
 // 创建 axios 实例
 const request: AxiosInstance = axios.create({

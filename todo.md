@@ -1,6 +1,3 @@
 # todo
 
-[x] mock server
-[ ] 回退
-    - https://ionicframework.com/docs/developing/hardware-back-button
-[ ] token 处理
+[] 历史记录，优先走缓存
