@@ -7,8 +7,27 @@ import type { QuickReplyItemProps } from '@chatui/core/lib/components/QuickRepli
 import { ChatLogStatus, ChatMessageSender, ChatLogDto, ChatMessageType } from '../dtos/chat-log.dto';
 
 import { postFeedback, postChat, getChatlog, getChatLogs, clearChatHistory } from '../utils/request';
-import { save2ImageCache, getImageFromStorage } from '../utils/storage';
+import { save2ImageCache, getImageFromStorage, hasToken } from '../utils/storage';
 import { FeedbackType } from '../constants/feedback';
+
+
+// 新增：等待直到 hasToken 为真或超时
+async function waitUntilTokenOrTimeout(timeoutMs = 5000, intervalMs = 200) {
+
+    const start = Date.now();
+    while (Date.now() - start < timeoutMs) {
+        try {
+            // 兼容 hasToken 返回同步布尔或 Promise 布尔的情况
+            const ok = await Promise.resolve(hasToken());
+            if (ok) return;
+        } catch {
+            // 忽略 hasToken 异常，继续轮询
+        }
+        // 等待 200 ms
+        await new Promise((r) => setTimeout(r, intervalMs));
+    }
+    
+  }
 
 // type Messages = MessageProps[];
 type MessageWithoutId = Omit<MessageProps, '_id'> & {
@@ -34,6 +53,7 @@ const defaultQuickReplies: QuickReplyItemProps[] = [
     },
 ];
 
+//  log -> message
 async function log2Message(log: ChatLogDto): Promise<MessageWithoutId> {
     const { text, sender, type } = log;
 
@@ -72,6 +92,8 @@ export const useCustomer = () => {
     const { messages, appendMsg, resetList, updateMsg, deleteMsg } = useMessages([]);
     const [feedbackMessageId, setFeedbackMessageId] = useState<string | null>(null);
     const [quickReplies] = useState<QuickReplyItemProps[]>(defaultQuickReplies);
+
+    const [isLoading, setIsLoading] = useState<boolean>(false)
 
     const [present] = useIonToast();
 
@@ -134,7 +156,13 @@ export const useCustomer = () => {
     }
 
     useEffect(() => {
+        
+        setIsLoading(true)
+
         async function initMessages() {
+            // 等待 5 秒，或者 已存在 token
+            await waitUntilTokenOrTimeout(10000);
+
             try {
                 const chatLogs = await getChatLogs();
                 const messages = await Promise.all(chatLogs.map(log2Message));
@@ -147,6 +175,8 @@ export const useCustomer = () => {
                     duration: 3000,
                     position: 'middle',
                 });
+            } finally {
+                setIsLoading(false)
             }
         }
 
@@ -265,5 +295,5 @@ export const useCustomer = () => {
         }
     }
 
-    return { messages, handleSend, sendFeedback, handleQuickReplyClick, quickReplies, closeFeedbackForm };
+    return { messages, handleSend, sendFeedback, handleQuickReplyClick, quickReplies, closeFeedbackForm, isLoading };
 };

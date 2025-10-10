@@ -28,6 +28,10 @@ export function getToken(): string {
   return getStorageItem('token') || '';
 }
 
+export function hasToken(): boolean {
+  return !!getToken()
+}
+
 
 /**
  * ================================================

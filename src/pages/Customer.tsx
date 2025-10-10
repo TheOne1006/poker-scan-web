@@ -5,6 +5,8 @@ import {
   IonPage,
   IonTitle,
   IonToolbar,
+  IonSpinner,
+  IonText
   // IonImg
 } from '@ionic/react';
 // import { send, camera, image, close } from 'ionicons/icons';
@@ -33,6 +35,7 @@ const Customer: React.FC = () => {
     handleQuickReplyClick,
     quickReplies,
     closeFeedbackForm,
+    isLoading,
    } = useCustomer();
 
 
@@ -88,6 +91,13 @@ const Customer: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen className="ion-padding">
+      {
+          isLoading ? (
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, padding: '24px 0' }}>
+              <IonSpinner name="crescent" color="primary" />
+              <IonText color="medium">加载中...</IonText>
+            </div>
+          ) :
           <Chat
             messagesRef={chatRef}
             // navbar={{ title: '智能助理' }}
@@ -98,6 +108,7 @@ const Customer: React.FC = () => {
             onSend={handleSend}
             colorScheme="auto"
           />
+      }
       </IonContent>
     </IonPage>
   );
