@@ -90,12 +90,17 @@ async function log2Message(log: ChatLogDto): Promise<MessageWithoutId> {
 
 export const useCustomer = () => {
     const { messages, appendMsg, resetList, updateMsg, deleteMsg } = useMessages([]);
-    const [feedbackMessageId, setFeedbackMessageId] = useState<string | null>(null);
+    // const [feedbackMessageId, setFeedbackMessageId] = useState<string | null>(null);
     const [quickReplies] = useState<QuickReplyItemProps[]>(defaultQuickReplies);
 
     const [isLoading, setIsLoading] = useState<boolean>(false)
 
     const [present] = useIonToast();
+
+
+    // showFeekbackSheet 
+    const [showFeedbackSheet, setShowFeedbackSheet] = useState<boolean>(false);
+
 
     async function postChatThenWaitForReplay(val: string) {
         let chatLog: ChatLogDto | null = null;
@@ -205,6 +210,7 @@ export const useCustomer = () => {
 
     // 发送意见反馈
     async function sendFeedback(description: string, type: string, images: File[]) {
+        setShowFeedbackSheet(false);
         try {
             const [feedbackLog, replyLog] = await postFeedback(description, type, images);
 
@@ -233,11 +239,12 @@ export const useCustomer = () => {
                 duration: 3000,
                 position: 'top',
             });
-        } finally {
-            if (feedbackMessageId) {
-                deleteMsg(feedbackMessageId);
-            }
-        }
+        } 
+        // finally {
+        //     if (feedbackMessageId) {
+        //         deleteMsg(feedbackMessageId);
+        //     }
+        // }
     }
 
 
@@ -251,17 +258,18 @@ export const useCustomer = () => {
             case 'feedback': {
                 
                 // 如果feedbackMessageId存在，则删除
-                if (feedbackMessageId) {
-                    deleteMsg(feedbackMessageId);
-                }
+                // if (feedbackMessageId) {
+                //     deleteMsg(feedbackMessageId);
+                // }
 
-                const newMsgId = appendMsg({
-                    type: "feedbackForm",
-                    content: "",
-                    position: "right",
-                });
+                setShowFeedbackSheet(true);
 
-                setFeedbackMessageId(newMsgId);
+                // const newMsgId = appendMsg({
+                //     type: "feedbackForm",
+                //     content: "",
+                //     position: "right",
+                // });
+                // setFeedbackMessageId(newMsgId);
                 break;
             }
             case 'clearHistory': { 
@@ -290,10 +298,11 @@ export const useCustomer = () => {
     }
 
     async function closeFeedbackForm() {
-        if (feedbackMessageId) {
-            deleteMsg(feedbackMessageId);
-        }
+        // if (feedbackMessageId) {
+        //     deleteMsg(feedbackMessageId);
+        // }
+        setShowFeedbackSheet(false);
     }
 
-    return { messages, handleSend, sendFeedback, handleQuickReplyClick, quickReplies, closeFeedbackForm, isLoading };
+    return { messages, handleSend, sendFeedback, handleQuickReplyClick, quickReplies, closeFeedbackForm, isLoading, showFeedbackSheet };
 };

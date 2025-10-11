@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import {
   IonContent,
   IonHeader,
@@ -6,13 +6,17 @@ import {
   IonTitle,
   IonToolbar,
   IonSpinner,
-  IonText
+  IonText,
+  IonModal,
+  IonButtons,
+  IonButton,
   // IonImg
 } from '@ionic/react';
 // import { send, camera, image, close } from 'ionicons/icons';
 import type { MessageProps } from '@chatui/core/lib/components/Message';
 import type { QuickReplyItemProps } from '@chatui/core/lib/components/QuickReplies';
 import type { MessageContainerHandle } from '@chatui/core/lib/components/MessageContainer';
+import { useLocation } from 'react-router-dom';
 
 // 引入组件
 import Chat, { Bubble, Typing } from '@chatui/core';
@@ -27,6 +31,19 @@ import { FeedbackCard } from '../components/ChatCards/FeedbackCard';
 
 
 const Customer: React.FC = () => {
+  // 查看 url 参数 如果 有showHeader 则显示头部
+  const { search } = useLocation();
+  const showHeader = new URLSearchParams(search).has('showHeader');
+
+  const modal = useRef<HTMLIonModalElement>(null);
+  const page = useRef(null);
+
+  const [presentingElement, setPresentingElement] = useState<HTMLElement | null>(null);
+
+  useEffect(() => {
+    setPresentingElement(page.current);
+  }, []);
+
   const chatRef = useRef<MessageContainerHandle>(null!);
   // 消息列表
   const { messages, 
@@ -36,7 +53,22 @@ const Customer: React.FC = () => {
     quickReplies,
     closeFeedbackForm,
     isLoading,
+    showFeedbackSheet,
    } = useCustomer();
+
+
+  function dismiss() {
+    closeFeedbackForm();
+    modal.current?.dismiss();
+  }
+
+  async function canDismiss() {
+    closeFeedbackForm();
+    return true
+  }
+
+
+
 
 
   // 滚动到最新消息的方法
@@ -71,26 +103,25 @@ const Customer: React.FC = () => {
           <FeedbackCard type={content.type} description={content.description} images={content.images} />
         </div>
         )
-      case 'feedbackForm':
-        return <div style={{ width: '100%' }}>
-          <FeedbackForm onSubmit={sendFeedback} onClose={closeFeedbackForm} />
-        </div>
+      // case 'feedbackForm':
+      //   return <div style={{ width: '100%' }}>
+      //     <FeedbackForm onSubmit={sendFeedback} onClose={closeFeedbackForm} />
+      //   </div>
       default:
         return <Bubble content={content.text} />;
     }
   }
 
   return (
-    <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          {/* <IonButtons slot="start">
-            <IonBackButton defaultHref="/home" />
-          </IonButtons> */}
-          <IonTitle>智能客服</IonTitle>
-        </IonToolbar>
-      </IonHeader>
-      <IonContent fullscreen className="ion-padding">
+    <IonPage ref={page}>
+      {showHeader && (
+        <IonHeader>
+          <IonToolbar>
+            <IonTitle>智能客服</IonTitle>
+          </IonToolbar>
+        </IonHeader>
+      )}
+      <IonContent fullscreen>
       {
           isLoading ? (
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, padding: '24px 0' }}>
@@ -109,6 +140,22 @@ const Customer: React.FC = () => {
             colorScheme="auto"
           />
       }
+
+        <IonModal mode="ios" ref={modal} trigger="open-modal" canDismiss={canDismiss} presentingElement={presentingElement!} isOpen={showFeedbackSheet}>
+          <IonHeader>
+            <IonToolbar>
+              <IonTitle>
+                建议反馈
+              </IonTitle>
+              <IonButtons slot="end">
+                <IonButton onClick={() => dismiss()}>取消</IonButton>
+              </IonButtons>
+            </IonToolbar>
+          </IonHeader>
+          <IonContent className="ion-padding">
+            <FeedbackForm onSubmit={sendFeedback} onClose={closeFeedbackForm} />
+          </IonContent>
+        </IonModal>
       </IonContent>
     </IonPage>
   );

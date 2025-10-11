@@ -27,7 +27,7 @@ import {
   add,
 } from 'ionicons/icons';
 import { FeedbackType, FEEDBACK_TYPES } from '../../constants/feedback';
-
+import './FeedbackForm.css'
 
 type FeedbackFormProps = {
   onSubmit: (description: string, type: string, images: File[]) => Promise<void>;
@@ -218,6 +218,12 @@ const FeedbackForm: React.FC<FeedbackFormProps> = ({ onSubmit, onClose }) => {
               maxlength={500}
               counter={true}
               fill="outline"
+              autoGrow={true}
+              // onIonFocus={(e) => {
+              //   // 将输入框滚动到视口中间，避免被键盘遮挡
+              //   // currentTarget 是 IonTextarea 元素（宿主），滚动它足够把控件露出来
+              //   e.currentTarget.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              // }}
             />
           </div>
 

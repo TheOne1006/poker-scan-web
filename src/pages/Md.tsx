@@ -20,8 +20,6 @@ const ErrorComponent: React.FC = () => {
 }
 
 const Md: React.FC = () => {
-  
-
   // const ionRouter = useIonRouter();
   const { type } = useParams<MdPageParams>();
   const [pageTitle, setPageTitle] = useState<string>('');

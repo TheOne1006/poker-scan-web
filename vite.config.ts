@@ -84,10 +84,10 @@ export default defineConfig({
     environment: 'jsdom',
     setupFiles: './src/setupTests.ts',
   },
-  // build: {
-  //   // 确保资源路径正确
-  //   assetsDir: 'assets', 
-  // },
+  build: {
+    // 确保资源路径正确
+    assetsDir: 'assets', 
+  },
   server: {
     proxy: {
       '/api': {
