@@ -87,6 +87,7 @@ export default defineConfig({
   build: {
     // 确保资源路径正确
     assetsDir: 'assets', 
+    manifest: true,
   },
   server: {
     proxy: {
