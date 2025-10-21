@@ -1,5 +1,5 @@
 import React from 'react';
-import { IonCard, IonCardContent, IonText } from '@ionic/react';
+import { IonCard, IonCardContent, IonText, IonCardHeader, IonCardTitle, IonCardSubtitle } from '@ionic/react';
 import './ImageFeatureCard.css';
 
 export interface ImageFeatureCardProps {
@@ -23,45 +23,39 @@ const ImageFeatureCard: React.FC<ImageFeatureCardProps> = ({
 }) => {
   const cardClass = `image-feature-card ${layout} ${className}`;
 
-  const textContent = (
-    <div className="image-card-text-content">
-      <IonText>
-        <h2 className="image-card-title">{title}</h2>
-      </IonText>
-      {subtitle && (
-        <IonText>
-          <p className="image-card-subtitle">{subtitle}</p>
-        </IonText>
-      )}
-    </div>
-  );
 
-  const imageContent = (
-    <div className="image-card-image-container">
+  const headerContent = (
+    <IonCardHeader>
+      <IonCardTitle className="ion-text-center">{title}</IonCardTitle>
+      <IonCardSubtitle className="ion-text-center">{subtitle}</IonCardSubtitle>
+    </IonCardHeader>
+  )
+
+
+  const cardBodyContent = (
+    <IonCardContent>
       <img
         src={imageUrl}
         alt={imageAlt}
         className="image-card-image"
         loading="lazy"
       />
-    </div>
-  );
+    </IonCardContent>
+  )
 
   return (
     <IonCard className={cardClass} onClick={onClick}>
-      <IonCardContent className="image-card-content">
-        {layout === 'text-top' ? (
-          <>
-            {textContent}
-            {imageContent}
-          </>
-        ) : (
-          <>
-            {imageContent}
-            {textContent}
-          </>
-        )}
-      </IonCardContent>
+      {layout === 'text-top' ? (
+        <>
+          {headerContent}
+          {cardBodyContent}
+        </>
+      ) : (
+        <>
+            {cardBodyContent}
+            {headerContent}
+        </>
+      )}
     </IonCard>
   );
 };
