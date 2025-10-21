@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonButtons, IonBackButton } from '@ionic/react';
-import { useIonRouter } from '@ionic/react';
+// import { useIonRouter } from '@ionic/react';
 
 
 // import './Md.css';
@@ -46,7 +46,7 @@ const Md: React.FC = () => {
 
   useEffect(() => {
     if (type) {
-      // filter 
+      // filter
       const mdDoc = mdDocs.find((md) => md.router === type);
 
       if (mdDoc) {

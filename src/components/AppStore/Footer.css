@@ -1,0 +1,259 @@
+/* Footer 组件样式 */
+.app-footer {
+  background: var(--ion-color-light);
+  border-top: 1px solid var(--ion-color-light-shade);
+  padding: 40px 0 20px;
+  margin-top: 60px;
+}
+
+.footer-content {
+  padding: 0 20px;
+}
+
+/* 下载区域样式 */
+.download-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.download-content h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: var(--ion-color-dark);
+}
+
+.ios-download-btn {
+  --border-radius: 12px;
+  --padding-start: 20px;
+  --padding-end: 20px;
+  --padding-top: 12px;
+  --padding-bottom: 12px;
+  font-weight: 500;
+  margin-bottom: 12px;
+  min-width: 180px;
+}
+
+.download-desc {
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+/* 链接区域样式 */
+.links-section {
+  margin-bottom: 30px;
+}
+
+.links-content h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: var(--ion-color-dark);
+  text-align: center;
+}
+
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.footer-link-item {
+  --background: transparent;
+  --color: var(--ion-color-medium);
+  --padding-start: 0;
+  --padding-end: 0;
+  --inner-padding-start: 0;
+  --inner-padding-end: 0;
+  --min-height: 40px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.footer-link-item:hover {
+  --background: var(--ion-color-light-tint);
+  --color: var(--ion-color-primary);
+}
+
+.footer-link-item ion-icon {
+  margin-right: 8px;
+  font-size: 1.1rem;
+}
+
+/* 联系信息区域样式 */
+.contact-section {
+  margin-bottom: 30px;
+}
+
+.contact-content h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: var(--ion-color-dark);
+  text-align: center;
+}
+
+.contact-info p {
+  display: flex;
+  align-items: center;
+  margin: 8px 0;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.contact-icon {
+  margin-right: 8px;
+  font-size: 1rem;
+  min-width: 16px;
+}
+
+/* 法律信息区域样式 */
+.legal-section {
+  margin-bottom: 30px;
+}
+
+.legal-content h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: var(--ion-color-dark);
+  text-align: center;
+}
+
+.legal-info p {
+  margin: 8px 0;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  text-align: center;
+}
+
+.legal-info a {
+  color: var(--ion-color-primary);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.legal-info a:hover {
+  color: var(--ion-color-primary-shade);
+  text-decoration: underline;
+}
+
+/* 底部版权区域样式 */
+.footer-bottom {
+  border-top: 1px solid var(--ion-color-light-shade);
+  padding-top: 20px;
+  margin-top: 20px;
+}
+
+.copyright {
+  text-align: center;
+}
+
+.copyright p {
+  margin: 0;
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+/* 响应式设计 */
+@media (min-width: 768px) {
+  .footer-content {
+    padding: 0 40px;
+  }
+  
+  .download-section,
+  .links-section,
+  .contact-section,
+  .legal-section {
+    margin-bottom: 0;
+    text-align: left;
+  }
+  
+  .download-section {
+    align-items: flex-start;
+  }
+  
+  .download-content h3,
+  .links-content h3,
+  .contact-content h3,
+  .legal-content h3 {
+    text-align: left;
+  }
+  
+  .legal-info p {
+    text-align: left;
+  }
+}
+
+@media (min-width: 992px) {
+  .footer-content {
+    padding: 0 60px;
+  }
+  
+  .app-footer {
+    padding: 60px 0 30px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .footer-content {
+    padding: 0 80px;
+  }
+}
+
+/* 暗色模式支持 */
+@media (prefers-color-scheme: dark) {
+  .app-footer {
+    background: var(--ion-color-dark);
+    border-top-color: var(--ion-color-dark-tint);
+  }
+  
+  .download-content h3,
+  .links-content h3,
+  .contact-content h3,
+  .legal-content h3 {
+    color: var(--ion-color-light);
+  }
+  
+  .footer-link-item:hover {
+    --background: var(--ion-color-dark-tint);
+  }
+  
+  .footer-bottom {
+    border-top-color: var(--ion-color-dark-tint);
+  }
+  
+  .legal-info a {
+    color: var(--ion-color-primary-tint);
+  }
+  
+  .legal-info a:hover {
+    color: var(--ion-color-primary);
+  }
+}
+
+/* 动画效果 */
+.ios-download-btn {
+  transition: all 0.3s ease;
+}
+
+.ios-download-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* 无障碍支持 */
+@media (prefers-reduced-motion: reduce) {
+  .footer-link-item,
+  .ios-download-btn,
+  .legal-info a {
+    transition: none;
+  }
+  
+  .ios-download-btn:hover {
+    transform: none;
+  }
+}

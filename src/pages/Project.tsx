@@ -1,6 +1,6 @@
 import React from "react";
 import { IonContent, IonPage } from "@ionic/react";
-import { HeroSection, FeatureSection } from "../components/AppStore";
+import { HeroSection, FeatureSection, Footer } from "../components/AppStore";
 
 import { heroTitle, heroDescription, appListFeatures, settingFeatures, coreFunctionsFeatures, supportedGamesFeatures, privacyFeatures } from "./ProjectFeaturesConstant";
 
@@ -41,7 +41,8 @@ const Project: React.FC = () => {
             backgroundColor="light"
           />
         </main>
-        {/* footer */}
+        
+        <Footer />
 
       </IonContent>
     </IonPage>
