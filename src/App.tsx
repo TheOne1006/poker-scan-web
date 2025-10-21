@@ -3,7 +3,7 @@ import { Redirect, Route } from 'react-router-dom';
 import { IonApp, IonRouterOutlet, setupIonicReact, IonContent, IonSpinner } from '@ionic/react';
 import {
    IonReactRouter,
-  //  IonReactHashRouter 
+  //  IonReactHashRouter
   } from '@ionic/react-router';
 
 // import Home from './pages/Home';
@@ -56,6 +56,7 @@ const Md = lazy(() => import('./pages/Md')); // 访问 /md/:type 时才加载
 const Customer = lazy(() => import('./pages/Customer')); // 访问 /customer 时加载
 const Demo = lazy(() => import('./pages/Demo')); // 访问 /demo 时加载
 const Project = lazy(() => import('./pages/Project')); // 访问 /project 时加载
+const AboutUs = lazy(() => import('./pages/AboutUs'))
 
 const App: React.FC = () => (
   <IonApp>
@@ -83,6 +84,9 @@ const App: React.FC = () => (
         </Route>
         <Route exact path="/project">
           <Project />
+        </Route>
+        <Route exact path="/about-us">
+          <AboutUs />
         </Route>
         <Route exact path="/">
           <Redirect to="/home" />

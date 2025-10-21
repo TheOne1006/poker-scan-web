@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonButtons, IonBackButton } from '@ionic/react';
+import { Footer } from "../components/Footer";
 // import { useIonRouter } from '@ionic/react';
 
 
@@ -69,10 +70,11 @@ const Md: React.FC = () => {
           <IonTitle>{pageTitle}</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonContent fullscreen className="ion-padding">
-        <div className="markdown-content">
+      <IonContent fullscreen>
+        <div className="markdown-content ion-padding">
           {ReactComponent}
         </div>
+        <Footer />
       </IonContent>
     </IonPage>
   );
