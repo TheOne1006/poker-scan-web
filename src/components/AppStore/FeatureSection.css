@@ -1,0 +1,60 @@
+.feature-section {
+  padding: 60px 0;
+}
+
+.feature-section--light {
+  background: var(--ion-color-light);
+}
+
+.feature-section--white {
+  background: var(--ion-background-color);
+}
+
+.section-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--ion-padding);
+}
+
+.section-title {
+  font-size: 2rem;
+  line-height: 1.125;
+  font-weight: 600;
+  letter-spacing: 0.004em;
+  margin: 0 0 40px 0;
+  color: var(--ion-color-dark);
+  text-align: center;
+}
+
+.feature-grid {
+  margin-top: 50px;
+  padding: 0;
+}
+
+/* 响应式设计 */
+@media (min-width: 768px) {
+  .section-content {
+    padding: 0 40px;
+  }
+
+  .section-title {
+    font-size: 2.5rem;
+    margin-bottom: 60px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .section-content {
+    padding: 0 60px;
+  }
+
+  .section-title {
+    font-size: 3rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .section-content {
+    padding: 0 80px;
+  }
+}

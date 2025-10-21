@@ -1,0 +1,198 @@
+.feature-card {
+  margin: 0;
+  border-radius: 18px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  min-height: 200px; /* 确保与 stats-card 相同的最小高度 */
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.feature-card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 30px 20px;
+  min-height: 140px; /* 确保内容区域有足够高度 */
+}
+
+.feature-icon {
+  margin-bottom: 20px;
+}
+
+.icon-placeholder {
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+.feature-card:hover .icon-placeholder {
+  transform: scale(1.1);
+}
+
+.icon-placeholder ion-icon {
+  font-size: 30px;
+  color: white;
+}
+
+/* 图标颜色变体 */
+.icon-placeholder--primary {
+  background: linear-gradient(135deg, var(--ion-color-primary), var(--ion-color-secondary));
+}
+
+.icon-placeholder--stories {
+  background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+}
+
+.icon-placeholder--curated {
+  background: linear-gradient(135deg, #4834d4, #686de0);
+}
+
+.icon-placeholder--events {
+  background: linear-gradient(135deg, #00d2d3, #54a0ff);
+}
+
+.icon-placeholder--search {
+  background: linear-gradient(135deg, #ff9ff3, #f368e0);
+}
+
+.icon-placeholder--details {
+  background: linear-gradient(135deg, #feca57, #ff9f43);
+}
+
+.icon-placeholder--security {
+  background: linear-gradient(135deg, #48dbfb, #0abde3);
+}
+
+.icon-placeholder--data {
+  background: linear-gradient(135deg, #1dd1a1, #10ac84);
+}
+
+.icon-placeholder--isolation {
+  background: linear-gradient(135deg, #ffeaa7, #fdcb6e);
+}
+
+.icon-placeholder--guidelines {
+  background: linear-gradient(135deg, #fd79a8, #e84393);
+}
+
+.icon-placeholder--content {
+  background: linear-gradient(135deg, #a29bfe, #6c5ce7);
+}
+
+.icon-placeholder--purchase {
+  background: linear-gradient(135deg, #fd79a8, #fdcb6e);
+}
+
+.icon-placeholder--unlock {
+  background: linear-gradient(135deg, #00b894, #00cec9);
+}
+
+.feature-title {
+  font-size: 1.3125rem;
+  line-height: 1.381;
+  font-weight: 600;
+  margin: 0 0 10px 0;
+  color: var(--ion-color-dark);
+}
+
+.feature-subtitle {
+  font-size: 1.0625rem;
+  line-height: 1.47059;
+  margin: 0;
+}
+
+/* 卡片变体 */
+/* Stats card variant */
+.stats-card {
+  --background: var(--ion-color-light);
+  border-radius: 18px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  min-height: 200px; /* 确保与普通卡片相同的最小高度 */
+}
+
+.stats-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.stats-card ion-card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 30px 20px;
+  min-height: 140px; /* 确保内容区域有足够高度 */
+}
+
+.stats-text {
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1.4;
+  margin: 0;
+  color: var(--ion-color-dark);
+}
+
+.feature-card--stats {
+  background: var(--ion-color-light);
+}
+
+.feature-card--stats .feature-card-content {
+  padding: 30px 20px;
+}
+
+.feature-card--stats .feature-title {
+  font-size: 1.0625rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.feature-card--highlight {
+  background: var(--ion-color-primary-tint);
+}
+
+/* 响应式设计 */
+@media (min-width: 768px) {
+  .feature-card-content {
+    padding: 40px 30px;
+  }
+}
+
+/* 暗色模式支持 */
+@media (prefers-color-scheme: dark) {
+  .feature-card {
+    box-shadow: 0 4px 20px rgba(255, 255, 255, 0.05);
+  }
+
+  .feature-card:hover {
+    box-shadow: 0 8px 30px rgba(255, 255, 255, 0.08);
+  }
+}
+
+/* 无障碍支持 */
+@media (prefers-reduced-motion: reduce) {
+  .feature-card,
+  .icon-placeholder {
+    transition: none;
+  }
+
+  .feature-card:hover {
+    transform: none;
+  }
+
+  .feature-card:hover .icon-placeholder {
+    transform: none;
+  }
+}

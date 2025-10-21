@@ -46,6 +46,14 @@ const Home: React.FC = () => {
                 <p>获取帮助和支持，支持图片上传</p>
               </IonLabel>
             </IonItem>
+
+            <IonItem button onClick={() => history.push('/project')}>
+              <IonIcon icon={chatbubbles} slot="start" />
+              <IonLabel>
+                <h2>项目展示</h2>
+                <p>查看项目展示</p>
+              </IonLabel>
+            </IonItem>
             <IonItem button onClick={() => history.push('/demo')}>
               <IonIcon icon={chatbubbles} slot="start" />
               <IonLabel>

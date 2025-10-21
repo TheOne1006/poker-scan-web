@@ -1,0 +1,49 @@
+.hero-section {
+  padding: 60px 0;
+  background: linear-gradient(135deg, var(--ion-color-light) 0%, var(--ion-background-color) 100%);
+}
+
+.hero-content {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 var(--ion-padding);
+}
+
+.hero-title {
+  font-size: 2.5rem;
+  line-height: 1.1;
+  font-weight: 600;
+  letter-spacing: -0.003em;
+  margin: 0 0 30px 0;
+  color: var(--ion-color-dark);
+}
+
+.hero-title-line {
+  display: block;
+}
+
+.hero-description {
+  font-size: 1.1875rem;
+  line-height: 1.4211;
+  font-weight: 400;
+  margin: 0;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* 响应式设计 */
+@media (min-width: 768px) {
+  .hero-title {
+    font-size: 3.5rem;
+  }
+
+  .hero-description {
+    font-size: 1.3125rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-title {
+    font-size: 4rem;
+  }
+}
