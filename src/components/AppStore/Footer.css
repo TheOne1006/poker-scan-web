@@ -163,7 +163,7 @@
   .footer-content {
     padding: 0 40px;
   }
-  
+
   .download-section,
   .links-section,
   .contact-section,
@@ -171,18 +171,18 @@
     margin-bottom: 0;
     text-align: left;
   }
-  
+
   .download-section {
     align-items: flex-start;
   }
-  
+
   .download-content h3,
   .links-content h3,
   .contact-content h3,
   .legal-content h3 {
     text-align: left;
   }
-  
+
   .legal-info p {
     text-align: left;
   }
@@ -192,7 +192,7 @@
   .footer-content {
     padding: 0 60px;
   }
-  
+
   .app-footer {
     padding: 60px 0 30px;
   }
@@ -207,31 +207,56 @@
 /* 暗色模式支持 */
 @media (prefers-color-scheme: dark) {
   .app-footer {
-    background: var(--ion-color-dark);
-    border-top-color: var(--ion-color-dark-tint);
+    background: var(--ion-color-light);
+    border-top-color: var(--ion-color-light-tint);
   }
-  
+
   .download-content h3,
   .links-content h3,
   .contact-content h3,
   .legal-content h3 {
-    color: var(--ion-color-light);
+    color: var(--ion-color-dark);
   }
-  
+
+  .footer-link-item {
+    --color: var(--ion-color-dark-shade);
+  }
+
   .footer-link-item:hover {
     --background: var(--ion-color-dark-tint);
+    --color: var(--ion-color-primary-tint);
   }
-  
+
+  .contact-info p {
+    color: var(--ion-color-dark-shade);
+  }
+
+  .contact-icon {
+    color: var(--ion-color-medium-tint);
+  }
+
   .footer-bottom {
-    border-top-color: var(--ion-color-dark-tint);
+    border-top-color: var(--ion-color-light-tint);
   }
-  
+
+  .copyright p {
+    color: var(--ion-color-dark-shade);
+  }
+
+  .legal-info p {
+    color: var(--ion-color-dark-shade);
+  }
+
   .legal-info a {
     color: var(--ion-color-primary-tint);
   }
-  
+
   .legal-info a:hover {
     color: var(--ion-color-primary);
+  }
+
+  .ios-download-btn:hover {
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
   }
 }
 
@@ -252,7 +277,7 @@
   .legal-info a {
     transition: none;
   }
-  
+
   .ios-download-btn:hover {
     transform: none;
   }
