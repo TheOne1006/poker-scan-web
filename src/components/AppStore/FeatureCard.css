@@ -165,8 +165,30 @@
 
 /* 响应式设计 */
 @media (min-width: 768px) {
-  .feature-card-content {
+  .feature-card {
+    min-height: 220px;
+  }
+  
+  .feature-card-content,
+  .stats-card ion-card-content {
     padding: 40px 30px;
+    min-height: 160px;
+  }
+}
+
+@media (max-width: 767px) {
+  .feature-card {
+    min-height: 180px;
+  }
+  
+  .feature-card-content,
+  .stats-card ion-card-content {
+    padding: 25px 20px;
+    min-height: 120px;
+  }
+  
+  .stats-card {
+    min-height: 180px;
   }
 }
 
