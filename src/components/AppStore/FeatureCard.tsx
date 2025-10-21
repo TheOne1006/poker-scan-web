@@ -4,6 +4,9 @@ import {
   IonCardContent,
   IonText,
   IonIcon,
+  IonCardHeader,
+  IonCardTitle,
+  IonCardSubtitle,
 } from '@ionic/react';
 import './FeatureCard.css';
 
@@ -16,11 +19,11 @@ interface FeatureCardProps {
   className?: string;
 }
 
-const FeatureCard: React.FC<FeatureCardProps> = ({ 
-  icon, 
+const FeatureCard: React.FC<FeatureCardProps> = ({
+  icon,
   iconColor = 'primary',
-  title, 
-  subtitle, 
+  title,
+  subtitle,
   variant = 'default',
   className = ''
 }) => {
@@ -38,26 +41,20 @@ const FeatureCard: React.FC<FeatureCardProps> = ({
 
   return (
     <IonCard className={`feature-card feature-card--${variant} ${className}`}>
-      <IonCardContent className="feature-card-content">
-        {icon && (
-          <div className="feature-icon">
-            <div className={`icon-placeholder icon-placeholder--${iconColor}`}>
-              <IonIcon icon={icon} />
+      <IonCardHeader>
+        <IonCardTitle className="ion-text-center">
+          {icon && (
+            <div className="feature-icon">
+              <div className={`icon-placeholder icon-placeholder--${iconColor}`}>
+                <IonIcon icon={icon} />
+              </div>
             </div>
-          </div>
-        )}
-        
-        <div className="feature-text">
-          <IonText>
-            <h3 className="feature-title">{title}</h3>
-          </IonText>
-          
-          {subtitle && (
-            <IonText color="medium">
-              <p className="feature-subtitle">{subtitle}</p>
-            </IonText>
           )}
-        </div>
+          {title}
+        </IonCardTitle>
+      </IonCardHeader>
+      <IonCardContent>
+        {subtitle}
       </IonCardContent>
     </IonCard>
   );

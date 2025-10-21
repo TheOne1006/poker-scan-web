@@ -3,7 +3,7 @@ import { IonContent, IonPage } from "@ionic/react";
 import { HeroSection, FeatureSection } from "../components/AppStore";
 import {
   // bookOutline,
-  // searchOutline,
+  searchOutline,
   shieldCheckmarkOutline,
   addCircleOutline,
   lockClosedOutline,
@@ -28,13 +28,22 @@ export const heroDescription =
 // Discovery Section 数据
 export const coreFunctionsFeatures = [
   {
+    id: "core-ml",
+    icon: searchOutline,
+    iconColor: "stories",
+    title: "核心原理",
+    subtitle:
+      "基于 ocr 图片识别技术，快速判断屏幕上的卡牌信息。\n 不读取系统内存。在保证用户隐私的前提下，提供高效、可靠的记牌服务。",
+    colSize: { xs: "12", md: "6", lg: "6" },
+  },
+  {
     id: "remaining-cards",
     icon: analyticsOutline,
     iconColor: "content",
     title: "轻松掌握剩牌数，精准把控牌局",
     subtitle:
-      "通过智能算法实时统计场上剩余牌张数量，无需用户手动记忆，即可清晰了解剩余牌型分布，帮助用户提前规划出牌策略，有效提升获胜概率，轻松掌握牌局主动权。",
-    colSize: { xs: "12", md: "6" },
+      "通过AI算法实时统计场上剩余牌张数量，等价于手绘草稿，清晰了解剩余牌型分布，帮助用户提前规划出牌策略。",
+    colSize: { xs: "12", md: "6", lg: "6" },
   },
   {
     id: "play-history",
@@ -42,8 +51,8 @@ export const coreFunctionsFeatures = [
     iconColor: "purchase",
     title: "各家出牌一览无余",
     subtitle:
-      "自动记录每一轮各家出牌情况，以直观的形式呈现出牌历史，用户可随时回溯查看，避免因遗漏出牌信息导致决策失误，让牌局进程透明化，提升游戏体验。",
-    colSize: { xs: "12", md: "6" },
+      "自动记录每一轮各家出牌情况，以直观的形式呈现出牌历史，用户可查看出牌信息导致决策失误，让牌局进程透明化，提升游戏体验。",
+    colSize: { xs: "12", md: "6", lg: "6" },
   },
   {
     id: "vip-trial",
@@ -52,7 +61,7 @@ export const coreFunctionsFeatures = [
     title: "7 天免费 VIP 试用",
     subtitle:
       "为让用户充分体验产品核心优势，现推出 7 天免费 VIP 试用权益，试用期间可解锁全部高级功能，无限制享受智能记牌服务。",
-    colSize: { xs: "12", md: "12" },
+    colSize: { xs: "12", md: "6", lg: "6" },
   },
 ];
 
@@ -91,7 +100,7 @@ export const privacyFeatures = [
     id: "privacy-by-design",
     icon: lockClosedOutline,
     iconColor: "data",
-    title: "隐私至上，不收集就是最好的保护",
+    title: "隐私至上，拒绝收集",
     subtitle: "我们仅使用您的 Apple 登录邮箱作为唯一身份标识，绝不存储或分析任何其他个人隐私数据。",
     colSize: { xs: "12", md: "6", lg: "4" },
   },

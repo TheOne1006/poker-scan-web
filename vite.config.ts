@@ -73,7 +73,7 @@ export default defineConfig({
       // Vite 会自动使用 public/manifest.json 文件
     }),
     // 仅在 build 时启用
-    visualizer({ 
+    visualizer({
       open: false,  // 构建完成后自动打开分析页面
       gzipSize: true,  // 显示 gzip 压缩后的大小
       brotliSize: true  // 显示 brotli 压缩后的大小
@@ -86,7 +86,7 @@ export default defineConfig({
   },
   build: {
     // 确保资源路径正确
-    assetsDir: 'assets', 
+    assetsDir: 'assets',
     manifest: true,
   },
   server: {

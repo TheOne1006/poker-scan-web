@@ -23,6 +23,8 @@
 
 .feature-icon {
   margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
 }
 
 .icon-placeholder {
@@ -98,13 +100,6 @@
   background: linear-gradient(135deg, #00b894, #00cec9);
 }
 
-.feature-title {
-  font-size: 1.3125rem;
-  line-height: 1.381;
-  font-weight: 600;
-  margin: 0 0 10px 0;
-  color: var(--ion-color-dark);
-}
 
 .feature-subtitle {
   font-size: 1.0625rem;
@@ -149,16 +144,6 @@
   background: var(--ion-color-light);
 }
 
-.feature-card--stats .feature-card-content {
-  padding: 30px 20px;
-}
-
-.feature-card--stats .feature-title {
-  font-size: 1.0625rem;
-  font-weight: 600;
-  margin: 0;
-}
-
 .feature-card--highlight {
   background: var(--ion-color-primary-tint);
 }
@@ -168,7 +153,7 @@
   .feature-card {
     min-height: 220px;
   }
-  
+
   .feature-card-content,
   .stats-card ion-card-content {
     padding: 40px 30px;
@@ -180,13 +165,13 @@
   .feature-card {
     min-height: 180px;
   }
-  
+
   .feature-card-content,
   .stats-card ion-card-content {
     padding: 25px 20px;
     min-height: 120px;
   }
-  
+
   .stats-card {
     min-height: 180px;
   }
