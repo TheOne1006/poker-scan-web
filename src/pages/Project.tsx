@@ -2,16 +2,16 @@ import React from "react";
 import { IonContent, IonPage } from "@ionic/react";
 import { HeroSection, FeatureSection } from "../components/AppStore";
 import {
-  bookOutline,
-  searchOutline,
+  // bookOutline,
+  // searchOutline,
   shieldCheckmarkOutline,
   addCircleOutline,
   lockClosedOutline,
   eyeOffOutline,
-  documentTextOutline,
-  warningOutline,
-  cardOutline,
-  phonePortraitOutline,
+  // documentTextOutline,
+  // warningOutline,
+  // cardOutline,
+  // phonePortraitOutline,
   analyticsOutline,
   eyeOutline,
   gameControllerOutline,
@@ -105,13 +105,81 @@ const Project: React.FC = () => {
     },
   ];
 
-  // Hardware Section 数据
+  // 游戏列表
+  const appListFeatures = [
+    {
+      id: "discovery-stories",
+      type: "image" as const,
+      title: "精选多种流行扑克",
+      subtitle: "常用扑克游戏，即刻可用方便快捷",
+      imageUrl: "images/hone-page-list_540x960.png",
+      imageAlt: "常用游戏",
+      layout: "text-top" as const,
+      colSize: { xs: "12", md: "6", lg: "4" },
+    },
+    {
+      id: "game-list-contextmenu",
+      type: "image" as const,
+      title: "编辑与扩展",
+      subtitle: "快捷的查看、编辑、复制现有的游戏",
+      imageUrl: "images/home_list_contextmenu_540x960.png",
+      imageAlt: "编辑与扩展",
+      layout: "text-bottom" as const,
+      colSize: { xs: "12", md: "6", lg: "4" },
+    },
+    {
+      id: "show-case",
+      type: "image" as const,
+      title: "完整的使用导航",
+      subtitle: "用例展示，方便您的自定义",
+      imageUrl: "images/edit_game_showcase_540x960.png",
+      imageAlt: "使用导航",
+      layout: "text-top" as const,
+      colSize: { xs: "12", md: "12", lg: "4" },
+    },
+  ];
+
+  //  设置列表
+  const settingFeatures = [
+    {
+      id: "setting-list",
+      type: "image" as const,
+      title: "设置页面",
+      subtitle: "完善设置页面, 包含用户信息、vip购买列表、用户反馈、如何使用",
+      imageUrl: "images/setting-page_540x960.png",
+      imageAlt: "设置页面",
+      layout: "text-top" as const,
+      colSize: { xs: "12", md: "6", lg: "6" },
+    },
+    {
+      id: "small-window-settings",
+      type: "image" as const,
+      title: "自定义画中画",
+      subtitle: "根据自己需求调整画中画样式",
+      imageUrl: "images/small-window-setting_540x960.png",
+      imageAlt: "自定义游戏规则",
+      layout: "text-bottom" as const,
+      colSize: { xs: "12", md: "6", lg: "6" },
+    },
+  ];
 
   return (
     <IonPage>
       <IonContent fullscreen>
         <main>
           <HeroSection title={heroTitle} description={heroDescription} />
+
+          <FeatureSection
+            title="发现与探索"
+            features={appListFeatures}
+            backgroundColor="light"
+          />
+
+          <FeatureSection
+            title="设置与自定义"
+            features={settingFeatures}
+            backgroundColor="white"
+          />
 
           <FeatureSection
             title="核心功能"

@@ -6,6 +6,7 @@ import {
   IonText,
 } from '@ionic/react';
 import FeatureCard from './FeatureCard';
+import ImageFeatureCard from './ImageFeatureCard';
 import './FeatureSection.css';
 
 interface Feature {
@@ -20,6 +21,11 @@ interface Feature {
     md?: string;
     lg?: string;
   };
+  // 新增图片卡片相关属性
+  type?: 'feature' | 'image';
+  imageUrl?: string;
+  imageAlt?: string;
+  layout?: 'text-top' | 'text-bottom';
 }
 
 interface FeatureSectionProps {
@@ -51,13 +57,23 @@ const FeatureSection: React.FC<FeatureSectionProps> = ({
                 sizeMd={feature.colSize?.md || "6"} 
                 sizeLg={feature.colSize?.lg || "4"}
               >
-                <FeatureCard
-                  icon={feature.icon}
-                  iconColor={feature.iconColor}
-                  title={feature.title}
-                  subtitle={feature.subtitle}
-                  variant={feature.variant}
-                />
+                {feature.type === 'image' ? (
+                  <ImageFeatureCard
+                    title={feature.title}
+                    subtitle={feature.subtitle}
+                    imageUrl={feature.imageUrl || ''}
+                    imageAlt={feature.imageAlt}
+                    layout={feature.layout}
+                  />
+                ) : (
+                  <FeatureCard
+                    icon={feature.icon}
+                    iconColor={feature.iconColor}
+                    title={feature.title}
+                    subtitle={feature.subtitle}
+                    variant={feature.variant}
+                  />
+                )}
               </IonCol>
             ))}
           </IonRow>
