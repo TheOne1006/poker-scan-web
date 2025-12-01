@@ -9,15 +9,15 @@
 import { FeedbackType } from '../constants/feedback';
 
 
-interface FeedbackBaseDto { 
+interface FeedbackBaseDto {
   description: string;
   images?: string[];
   type: FeedbackType;
 }
 
 export interface FeedbackDto extends FeedbackBaseDto {
-  id: string;
-  userId: string;
+  id: number;
+  uid: string;
 }
 
 export interface FeedbackCreateDto extends FeedbackBaseDto {

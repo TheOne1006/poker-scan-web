@@ -29,21 +29,21 @@ export enum ChatLogStatus {
 
 
 
-export interface ChatLogDto {  
+export interface ChatLogDto {
   text: string;
 
   type: string;
 
   status: ChatLogStatus;
- 
+
   sender: ChatMessageSender;
 
- 
+
   supportId: string;
 
   relation: Record<string, any>; // eslint-disable-line @typescript-eslint/no-explicit-any
 
-  userId: string;
+  uid: string;
 
-  id: string;
+  id: number;
 }

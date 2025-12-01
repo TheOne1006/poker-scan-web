@@ -1,8 +1,8 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError, AxiosRequestHeaders } from 'axios';
 
 
-import { 
-  // FeedbackDto, 
+import {
+  // FeedbackDto,
   ChatLogDto,
   ChatDto
 } from '../dtos';
@@ -87,11 +87,11 @@ export async function post<T = unknown, D = unknown>(
 
 /**
  * 反馈提交
- * 
+ *
  * @param description 描述
  * @param type 类型
  * @param files 文件
- * @returns 
+ * @returns
  */
 export async function postFeedback (
   description: string,
@@ -146,7 +146,7 @@ export async function postChat(message: string) : Promise<ChatLogDto> {
 
 
 // 更新对话内容
-export async function getChatlog(logId: string): Promise<ChatLogDto> {
+export async function getChatlog(logId: number): Promise<ChatLogDto> {
   // const response = await fetch(`/api/chats/logs/${logId}`, {
   //   method: 'GET',
   //   headers: {

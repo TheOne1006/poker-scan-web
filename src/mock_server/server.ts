@@ -7,7 +7,7 @@ createServer({
     this.timing = 1000;
 
     this.get('/api/users', () => [
-        { id: 1, name: '张三' }
+        { uid: "111", name: '张三' }
     ]);
 
 
@@ -18,7 +18,7 @@ createServer({
       const images = [];
       let description = '';
       let type = '';
-      
+
       if ((request.requestBody as unknown as FormData) instanceof FormData) {
         // 获取所有表单字段（包括文件）
         const formDataEntries = (request.requestBody as unknown as FormData).entries();
@@ -47,10 +47,10 @@ createServer({
       }
 
 
-      const randomId = Math.random().toString(36).substring(2, 15);
-      const randomId2 = Math.random().toString(36).substring(2, 15);
+      const randomId = Math.floor(Math.random() * 1000000000);
+      const randomId2 = Math.floor(Math.random() * 1000000000);
 
-      
+
       return [
         {
           "text": "应用在某些情况下会崩溃",
@@ -66,7 +66,7 @@ createServer({
             "userid": "68b942ef21dce5113920f4df",
             "createdAt": "2025-09-07T03:53:32.589Z",
             "updatedAt": "2025-09-07T03:53:32.589Z",
-            "id": "68bd01bc90ed2201c4a762e9"
+            "id": 1
           },
           "supportId": "68bd01bc90ed2201c4a762e9",
           "userId": "68b942ef21dce5113920f4df",
@@ -94,7 +94,7 @@ createServer({
         "logs": [
           {
             "updatedAt": "2025-09-07T03:53:32.690Z",
-            "id": "68bd01bc90ed2201c4a762ea",
+            "id": Math.floor(Math.random() * 1000000000),
             "createdAt": "2025-09-07T03:53:32.690Z",
             "type": "feedback",
             "status": "completed",
@@ -110,13 +110,13 @@ createServer({
               "userid": "68b942ef21dce5113920f4df",
               "createdAt": "2025-09-07T03:53:32.589Z",
               "updatedAt": "2025-09-07T03:53:32.589Z",
-              "id": "68bd01bc90ed2201c4a762e9"
+              "id": Math.floor(Math.random() * 1000000000)
             },
             "text": "应用在某些情况下会崩溃"
           },
           {
             "updatedAt": "2025-09-07T03:53:32.701Z",
-            "id": "68bd01bc90ed2201c4a762eb",
+            "id": Math.floor(Math.random() * 1000000000),
             "createdAt": "2025-09-07T03:53:32.701Z",
             "type": "text",
             "status": "completed",
@@ -129,7 +129,7 @@ createServer({
         ],
         "logStartAt": "2025-09-07T03:53:32.446Z",
         "userId": "68b942ef21dce5113920f4df",
-        "id": "68bd01bceb5f221d6f36b465",
+        "id": Math.floor(Math.random() * 1000000000),
         "createdAt": "2025-09-07T03:53:32.738Z",
         "updatedAt": "2025-09-07T03:53:32.738Z"
       }
@@ -138,7 +138,7 @@ createServer({
     this.post('/api/chats', () => {
       return {
         "updatedAt": "2025-09-07T03:53:32.701Z",
-        "id": "68bd01bc90ed2201c4a762ee",
+        "id": Math.floor(Math.random() * 1000000000),
         "createdAt": "2025-09-07T03:53:32.701Z",
         "type": "text",
         "status": "pending",
@@ -161,7 +161,7 @@ createServer({
         "userId": "68b942ef21dce5113920f4df",
         "relation": {},
         "text": text,
-        "id": request.params.id,
+        "id": parseInt(request.params.id),
         "createdAt": "2025-09-07T03:53:32.701Z",
         "updatedAt": "2025-09-07T03:53:32.701Z"
       }
